@@ -9,7 +9,7 @@
 - 위의 링크에서 어플리케이션 등록하고 파파고 api 등록하고 사용
 
 ### 필요 lib
-```bash
+```
 pip install urllib
 pip install openpyxl
 ```
@@ -18,6 +18,6 @@ pip install openpyxl
 - google 번역 api를 이용해 csv에 저장
 
 ### 필요 lib
-```bash
+```
 pip install googletrans
 ```
