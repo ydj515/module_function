@@ -21,7 +21,7 @@ def send_request(method_name, url, param, is_urlencoded=True): # request 보냄
         return {**res, **{'text':response.text}}
 
 def send_message_to_slack(text): # slack에 진행상황 보고
-    url = "https://hooks.slack.com/services/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"
+    url = "웹훅 url"
     payload = { "text" : "@유동진 \t" + text }
     requests.post(url, json=payload)
 
