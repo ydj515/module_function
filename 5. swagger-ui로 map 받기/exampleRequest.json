@@ -1,0 +1,953 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1",
+      "title": "대한민국 공공서비스 정보",
+      "description": "정부24 대한민국 공공서비스 정보 제공 서비스"
+    },
+    "host": "api.odcloud.kr",
+    "basePath": "/api",
+    "schemes": [
+      "https",
+      "http"
+    ],
+    "securityDefinitions": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      },
+      "ApiKeyAuth2": {
+        "type": "apiKey",
+        "in": "query",
+        "name": "serviceKey"
+      }
+    },
+    "paths": {
+      "/gov24/v1/details": {
+        "get": {
+          "tags": [
+            "API 목록"
+          ],
+          "summary": "",
+          "operationId": "GETdetails",
+          "description": "공공서비스 상세정보 제공",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "description": "page index",
+              "type": "integer",
+              "format": "int64",
+              "exclusiveMinimum": false,
+              "default": 1
+            },
+            {
+              "name": "perPage",
+              "in": "query",
+              "description": "page size",
+              "type": "integer",
+              "format": "int64",
+              "exclusiveMinimum": false,
+              "default": 10
+            },
+            {
+              "name": "returnType",
+              "in": "query",
+              "description": "응답의 데이터 타입을 선택할 수 있습니다. (기본값: JSON)<br/>XML형태의 응답결과를 얻기 위해서는 XML 값으로 설정",
+              "type": "string",
+              "exclusiveMinimum": false
+            },
+            {
+              "name": "cond[SVC_ID::EQ]",
+              "in": "query",
+              "description": "서비스 아이디",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "성공적으로 수행 됨",
+              "schema": {
+                "$ref": "#/definitions/details_api"
+              }
+            },
+            "401": {
+              "description": "인증 정보가 정확 하지 않음"
+            },
+            "500": {
+              "description": "API 서버에 문제가 발생하였음"
+            }
+          },
+          "security": [
+            {
+              "ApiKeyAuth": []
+            },
+            {
+              "ApiKeyAuth2": []
+            }
+          ]
+        }
+      },
+      "/gov24/v1/list": {
+        "get": {
+          "tags": [
+            "API 목록"
+          ],
+          "summary": "",
+          "operationId": "GETlist",
+          "description": "공공서비스 목록",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "description": "page index",
+              "type": "integer",
+              "format": "int64",
+              "exclusiveMinimum": false,
+              "default": 1
+            },
+            {
+              "name": "perPage",
+              "in": "query",
+              "description": "page size",
+              "type": "integer",
+              "format": "int64",
+              "exclusiveMinimum": false,
+              "default": 10
+            },
+            {
+              "name": "returnType",
+              "in": "query",
+              "description": "응답의 데이터 타입을 선택할 수 있습니다. (기본값: JSON)<br/>XML형태의 응답결과를 얻기 위해서는 XML 값으로 설정",
+              "type": "string",
+              "exclusiveMinimum": false
+            },
+            {
+              "name": "cond[AST_CD_PATH::LIKE]",
+              "in": "query",
+              "description": "분류체계 코드",
+              "type": "string"
+            },
+            {
+              "name": "cond[JRSD_DPT_CD::EQ]",
+              "in": "query",
+              "description": "소관 부서 코드",
+              "type": "string"
+            },
+            {
+              "name": "cond[JRSD_ORG_CD::EQ]",
+              "in": "query",
+              "description": "소관 기관 코드",
+              "type": "string"
+            },
+            {
+              "name": "cond[ONLN_REQST_PSB_YN_CD::EQ]",
+              "in": "query",
+              "description": "온라인 신청 가능 여부 코드",
+              "type": "string"
+            },
+            {
+              "name": "cond[REQST_PROCSS::LIKE]",
+              "in": "query",
+              "description": "신청 절차",
+              "type": "string"
+            },
+            {
+              "name": "cond[SPORT_FR_CD::EQ]",
+              "in": "query",
+              "description": "지원 형태 코드(값이 여러 개일 경우, 수직바 2개(||)를 구분자로 하여 제공)",
+              "type": "string"
+            },
+            {
+              "name": "cond[SVC_CLS_CD::EQ]",
+              "in": "query",
+              "description": "서비스 유형 코드",
+              "type": "string"
+            },
+            {
+              "name": "cond[SVC_CTS::LIKE]",
+              "in": "query",
+              "description": "서비스 내용",
+              "type": "string"
+            },
+            {
+              "name": "cond[SVC_NM::LIKE]",
+              "in": "query",
+              "description": "서비스 명",
+              "type": "string"
+            },
+            {
+              "name": "cond[SVC_PPO::LIKE]",
+              "in": "query",
+              "description": "서비스 목적",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "성공적으로 수행 됨",
+              "schema": {
+                "$ref": "#/definitions/list_api"
+              }
+            },
+            "401": {
+              "description": "인증 정보가 정확 하지 않음"
+            },
+            "500": {
+              "description": "API 서버에 문제가 발생하였음"
+            }
+          },
+          "security": [
+            {
+              "ApiKeyAuth": []
+            },
+            {
+              "ApiKeyAuth2": []
+            }
+          ]
+        }
+      },
+      "/gov24/v1/category": {
+        "get": {
+          "tags": [
+            "API 목록"
+          ],
+          "summary": "",
+          "operationId": "GETcategory",
+          "description": "공공서비스 분류",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "description": "page index",
+              "type": "integer",
+              "format": "int64",
+              "exclusiveMinimum": false,
+              "default": 1
+            },
+            {
+              "name": "perPage",
+              "in": "query",
+              "description": "page size",
+              "type": "integer",
+              "format": "int64",
+              "exclusiveMinimum": false,
+              "default": 10
+            },
+            {
+              "name": "returnType",
+              "in": "query",
+              "description": "응답의 데이터 타입을 선택할 수 있습니다. (기본값: JSON)<br/>XML형태의 응답결과를 얻기 위해서는 XML 값으로 설정",
+              "type": "string",
+              "exclusiveMinimum": false
+            },
+            {
+              "name": "cond[AST_CD::EQ]",
+              "in": "query",
+              "description": "분류 체계 코드",
+              "type": "string"
+            },
+            {
+              "name": "cond[UP_AST_CD::EQ]",
+              "in": "query",
+              "description": "상위 분류체계 코드",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "성공적으로 수행 됨",
+              "schema": {
+                "$ref": "#/definitions/category_api"
+              }
+            },
+            "401": {
+              "description": "인증 정보가 정확 하지 않음"
+            },
+            "500": {
+              "description": "API 서버에 문제가 발생하였음"
+            }
+          },
+          "security": [
+            {
+              "ApiKeyAuth": []
+            },
+            {
+              "ApiKeyAuth2": []
+            }
+          ]
+        }
+      },
+      "/gov24/v1/category-code": {
+        "get": {
+          "tags": [
+            "API 목록"
+          ],
+          "summary": "",
+          "operationId": "GETcategory-code",
+          "description": "기관분류 코드",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "description": "page index",
+              "type": "integer",
+              "format": "int64",
+              "exclusiveMinimum": false,
+              "default": 1
+            },
+            {
+              "name": "perPage",
+              "in": "query",
+              "description": "page size",
+              "type": "integer",
+              "format": "int64",
+              "exclusiveMinimum": false,
+              "default": 10
+            },
+            {
+              "name": "returnType",
+              "in": "query",
+              "description": "응답의 데이터 타입을 선택할 수 있습니다. (기본값: JSON)<br/>XML형태의 응답결과를 얻기 위해서는 XML 값으로 설정",
+              "type": "string",
+              "exclusiveMinimum": false
+            },
+            {
+              "name": "cond[CD::EQ]",
+              "in": "query",
+              "description": "코드",
+              "type": "string"
+            },
+            {
+              "name": "cond[CD_NM::EQ]",
+              "in": "query",
+              "description": "코드명",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "성공적으로 수행 됨",
+              "schema": {
+                "$ref": "#/definitions/category-code_api"
+              }
+            },
+            "401": {
+              "description": "인증 정보가 정확 하지 않음"
+            },
+            "500": {
+              "description": "API 서버에 문제가 발생하였음"
+            }
+          },
+          "security": [
+            {
+              "ApiKeyAuth": []
+            },
+            {
+              "ApiKeyAuth2": []
+            }
+          ]
+        }
+      },
+      "/gov24/v1/org-code": {
+        "get": {
+          "tags": [
+            "API 목록"
+          ],
+          "summary": "",
+          "operationId": "GETorg-code",
+          "description": "기관코드",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "description": "page index",
+              "type": "integer",
+              "format": "int64",
+              "exclusiveMinimum": false,
+              "default": 1
+            },
+            {
+              "name": "perPage",
+              "in": "query",
+              "description": "page size",
+              "type": "integer",
+              "format": "int64",
+              "exclusiveMinimum": false,
+              "default": 10
+            },
+            {
+              "name": "returnType",
+              "in": "query",
+              "description": "응답의 데이터 타입을 선택할 수 있습니다. (기본값: JSON)<br/>XML형태의 응답결과를 얻기 위해서는 XML 값으로 설정",
+              "type": "string",
+              "exclusiveMinimum": false
+            },
+            {
+              "name": "cond[ORG_CD::EQ]",
+              "in": "query",
+              "description": "기관 코드",
+              "type": "string"
+            },
+            {
+              "name": "cond[FS_ORG_CD::EQ]",
+              "in": "query",
+              "description": "상위 기관 코드",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "성공적으로 수행 됨",
+              "schema": {
+                "$ref": "#/definitions/org-code_api"
+              }
+            },
+            "401": {
+              "description": "인증 정보가 정확 하지 않음"
+            },
+            "500": {
+              "description": "API 서버에 문제가 발생하였음"
+            }
+          },
+          "security": [
+            {
+              "ApiKeyAuth": []
+            },
+            {
+              "ApiKeyAuth2": []
+            }
+          ]
+        }
+      }
+    },
+    "definitions": {
+      "details_model": {
+        "type": "object",
+        "properties": {
+          "ADMINIST_DONG_CD": {
+            "type": "string",
+            "description": "행정동 코드"
+          },
+          "AST_PATH_CD": {
+            "type": "string",
+            "description": "분류체계 코드, 값이 여러 개일 경우, 수직바 2개(||)를 구분자로 하여 제공 ex)120000>120400>120403||020000>020200>020202"
+          },
+          "AST_PATH_NM": {
+            "type": "string",
+            "description": "분류체계 명값이 여러 개일 경우, 수직바 2개를 구분자로 하여 제공 ex) 여가·문화·출입국>운동/여가생활>여가/취미생활||창업·경영>기업운영지원>운영지원 "
+          },
+          "DUP_IMPRTY_SVC": {
+            "type": "string",
+            "description": "중복 불가 서비스"
+          },
+          "JRSD_DPT_ALL_NM": {
+            "type": "string",
+            "description": "소관 부서 코드 전체명"
+          },
+          "JRSD_DPT_CD": {
+            "type": "string",
+            "description": "소관 부서 코드"
+          },
+          "JRSD_DPT_NM": {
+            "type": "string",
+            "description": "소관 부서 명"
+          },
+          "JRSD_ORG_CD": {
+            "type": "string",
+            "description": "소관 기관 코드"
+          },
+          "JRSD_ORG_CLS_CD": {
+            "type": "string",
+            "description": "소관 기관 유형 코드"
+          },
+          "JRSD_ORG_NM": {
+            "type": "string",
+            "description": "소관 기관 명"
+          },
+          "LAW_NM": {
+            "type": "string",
+            "description": "법령명(값이 여러 개일 경우, 수직바 2개(||)를 구분자로 하여 제공)"
+          },
+          "LAW_URL": {
+            "type": "string",
+            "description": "법령 URL (값이 여러 개일 경우, 수직바 2개(||)를 구분자로 하여 제공)"
+          },
+          "ONLN_REQST_PSB_YN_CD": {
+            "type": "string",
+            "description": "온라인 신청 가능 여부 코드"
+          },
+          "ONLN_REQST_SITE_URL": {
+            "type": "string",
+            "description": "온라인 신청 사이트 URL"
+          },
+          "POSES_PAPERS": {
+            "type": "string",
+            "description": "구비 서류"
+          },
+          "RCV_CHARGER_TEL_NO": {
+            "type": "string",
+            "description": "접수 담당자 명"
+          },
+          "RCV_DPT_NM": {
+            "type": "string",
+            "description": "접수 부서 명"
+          },
+          "REFRNC_NM": {
+            "type": "string",
+            "description": "문의처 명"
+          },
+          "REFRNC_SITE_URL": {
+            "type": "string",
+            "description": "문의처 사이트 URL"
+          },
+          "REFRNC_TEL_NO": {
+            "type": "string",
+            "description": "문의처 전화번호"
+          },
+          "REQST_ND_YN_CD": {
+            "type": "string",
+            "description": "신청 필요 여부 코드"
+          },
+          "REQST_PROCSS": {
+            "type": "string",
+            "description": "신청 방법"
+          },
+          "REQST_TMLMT_ED_DT": {
+            "type": "string",
+            "description": "신청  기한 종료 일자"
+          },
+          "REQST_TMLMT_ETC": {
+            "type": "string",
+            "description": "신청  기한 기타"
+          },
+          "REQST_TMLMT_ST_DT": {
+            "type": "string",
+            "description": "신청  기한 시작 일자"
+          },
+          "SLCTN_STDR": {
+            "type": "string",
+            "description": "선정 기준"
+          },
+          "SPORT_FR_CD": {
+            "type": "string",
+            "description": "지원 형태 코드(값이 여러 개일 경우, 수직바 2개(||)를 구분자로 하여 제공)"
+          },
+          "SPORT_FR_NM": {
+            "type": "string",
+            "description": "지원 형태 명(값이 여러 개일 경우, 수직바 2개(||)를 구분자로 하여 제공)"
+          },
+          "SPORT_TG": {
+            "type": "string",
+            "description": "지원 대상"
+          },
+          "SVC_CLS_CD": {
+            "type": "string",
+            "description": "서비스 유형 코드"
+          },
+          "SVC_CTS": {
+            "type": "string",
+            "description": "서비스 내용"
+          },
+          "SVC_DH": {
+            "type": "string",
+            "description": "서비스 일시"
+          },
+          "SVC_ID": {
+            "type": "string",
+            "description": "서비스 아이디"
+          },
+          "SVC_INFO_URL": {
+            "type": "string",
+            "description": "서비스 상세 URL"
+          },
+          "SVC_NM": {
+            "type": "string",
+            "description": "서비스명"
+          },
+          "SVC_PPO": {
+            "type": "string",
+            "description": "서비스 목적"
+          },
+          "SVC_SEQ": {
+            "type": "integer",
+            "description": "서비스 일련번호"
+          }
+        }
+      },
+      "details_api": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "perPage": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "currentCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/details_model"
+            }
+          }
+        }
+      },
+      "list_model": {
+        "type": "object",
+        "properties": {
+          "AST_CD_PATH": {
+            "type": "string",
+            "description": "분류체계 코드"
+          },
+          "AST_PATH": {
+            "type": "string",
+            "description": "분류체계 명"
+          },
+          "DPT_ALL_NM": {
+            "type": "string",
+            "description": "소관 부서 전체명"
+          },
+          "DPT_NM": {
+            "type": "string",
+            "description": "소관 부서 명"
+          },
+          "JRSD_DPT_CD": {
+            "type": "string",
+            "description": "소관 부서 코드"
+          },
+          "JRSD_ORG_CD": {
+            "type": "string",
+            "description": "소관 기관 코드"
+          },
+          "ONLN_REQST_NM": {
+            "type": "string",
+            "description": "온라인 신청 가능 여부 명"
+          },
+          "ONLN_REQST_PSB_YN_CD": {
+            "type": "string",
+            "description": "온라인 신청 가능 여부 코드"
+          },
+          "ONLN_REQST_SITE_URL": {
+            "type": "string",
+            "description": "온라인 신청 가능 여부 코드"
+          },
+          "ORG_NM": {
+            "type": "string",
+            "description": "기관명"
+          },
+          "REFRNC_SITE_URL": {
+            "type": "string",
+            "description": "문의처 사이트 URL"
+          },
+          "REQST_PROCSS": {
+            "type": "string",
+            "description": "신청 절차"
+          },
+          "SEARCH_PRIOR_RNK_CD": {
+            "type": "string",
+            "description": "검색 우선 순위 코드"
+          },
+          "SLCTN_STDR": {
+            "type": "string",
+            "description": "선정 기준"
+          },
+          "SORT_TTL": {
+            "type": "string",
+            "description": "정렬 제목"
+          },
+          "SPORT_FR_CD": {
+            "type": "string",
+            "description": "지원 형태 코드(값이 여러 개일 경우, 수직바 2개(||)를 구분자로 하여 제공)"
+          },
+          "SPORT_FR_NM": {
+            "type": "string",
+            "description": "지원 형태 명(값이 여러 개일 경우, 수직바 2개(||)를 구분자로 하여 제공)"
+          },
+          "SPORT_TG": {
+            "type": "string",
+            "description": "지원 대상"
+          },
+          "SVC_CLS_CD": {
+            "type": "string",
+            "description": "서비스 유형 코드"
+          },
+          "SVC_CLS_CD_NM": {
+            "type": "string",
+            "description": "서비스 유형 코드명"
+          },
+          "SVC_CTS": {
+            "type": "string",
+            "description": "서비스 내용"
+          },
+          "SVC_ID": {
+            "type": "string",
+            "description": "서비스 아이디"
+          },
+          "SVC_INFO_URL": {
+            "type": "string",
+            "description": "서비스 상세 URL"
+          },
+          "SVC_NM": {
+            "type": "string",
+            "description": "서비스 명"
+          },
+          "SVC_PPO": {
+            "type": "string",
+            "description": "서비스 목적"
+          },
+          "SVC_REG_DH": {
+            "type": "string",
+            "description": "서비스 일자"
+          },
+          "SVC_SEQ": {
+            "type": "integer",
+            "description": "서비스 일련 번호"
+          },
+          "VW_CNT": {
+            "type": "integer",
+            "description": "조회수"
+          }
+        }
+      },
+      "list_api": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "perPage": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "currentCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/list_model"
+            }
+          }
+        }
+      },
+      "category_model": {
+        "type": "object",
+        "properties": {
+          "AST_CD": {
+            "type": "string",
+            "description": "분류 체계 코드"
+          },
+          "AST_NM": {
+            "type": "string",
+            "description": "분류 체계 명"
+          },
+          "UP_AST_CD": {
+            "type": "string",
+            "description": "상위 분류체계 코드"
+          }
+        }
+      },
+      "category_api": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "perPage": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "currentCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/category_model"
+            }
+          }
+        }
+      },
+      "category-code_model": {
+        "type": "object",
+        "properties": {
+          "CD": {
+            "type": "string",
+            "description": "코드"
+          },
+          "CD_GRP": {
+            "type": "string",
+            "description": "코드 그룹"
+          },
+          "CD_NM": {
+            "type": "string",
+            "description": "코드명"
+          },
+          "MOPAS_STD_YN": {
+            "type": "string",
+            "description": "행안부 표준 여부"
+          },
+          "USR_DEF_ONE": {
+            "type": "string",
+            "description": "정의1"
+          },
+          "USR_DEF_TWO": {
+            "type": "string",
+            "description": "정의2"
+          },
+          "USR_DEF_THREE": {
+            "type": "string",
+            "description": "정의3"
+          },
+          "DEL_YN": {
+            "type": "string",
+            "description": "삭제 여부"
+          },
+          "REGR_SEQ": {
+            "type": "integer",
+            "description": "등록자 일련번호(미사용)"
+          },
+          "MODR_SEQ": {
+            "type": "integer",
+            "description": "수정자 일련번호(미사용)"
+          },
+          "REG_DH": {
+            "type": "string",
+            "description": "등록 일시"
+          },
+          "MOD_DH": {
+            "type": "string",
+            "description": "수정 일시"
+          }
+        }
+      },
+      "category-code_api": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "perPage": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "currentCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/category-code_model"
+            }
+          }
+        }
+      },
+      "org-code_model": {
+        "type": "object",
+        "properties": {
+          "ORG_CD": {
+            "type": "string",
+            "description": "기관 코드"
+          },
+          "ORG_NM": {
+            "type": "string",
+            "description": "기관명"
+          },
+          "FS_ORG_CD": {
+            "type": "string",
+            "description": "상위 기관 코드"
+          },
+          "FS_ORG_NM": {
+            "type": "string",
+            "description": "상위 기관명"
+          }
+        }
+      },
+      "org-code_api": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "perPage": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "currentCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/org-code_model"
+            }
+          }
+        }
+      }
+    }
+  }
